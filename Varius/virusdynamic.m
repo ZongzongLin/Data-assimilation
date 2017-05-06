@@ -1,4 +1,4 @@
-function y=virusdynamic(x,matv,alpha,beta,n,pnum,SG,sigma)
+function y=virusdynamic(x,matv,alpha,beta,n)
 y=zeros(n,1);
 L=zeros(n);
 p=1;
@@ -16,13 +16,11 @@ for i=1:n
         if L(i,k)~=0
             multiply=multiply*(1-L(i,k)*x(k));
         end
-    end  
-    y(i)=(1-(1-alpha(i))*multiply)*(1-x(i))+(1-beta(i))*x(i);
+    end
+    if length(alpha)==1
+        y(i)=(1-(1-alpha)*multiply)*(1-x(i))+(1-beta)*x(i);
+    else
+        y(i)=(1-(1-alpha(i))*multiply)*(1-x(i))+(1-beta(i))*x(i);
+    end
 end
 y=[y;matv;alpha;beta];
-if strcmp(SG,'Gaussian')
-        y=y+sigma*randn(pnum,1);
-elseif strcmp(SG,'Normal')
-        y=y+sigma*(2*rand(pnum,1)-1);
-end 
-y=cutoff(y);

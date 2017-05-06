@@ -1,0 +1,1 @@
+function gredient_decent(squre_error,x,Lv,alpha,beta,n)
